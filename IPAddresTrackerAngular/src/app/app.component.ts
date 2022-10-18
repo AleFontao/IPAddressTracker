@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.map = L.map('map').setView([-33.461582765942882, -64.18693255105764], 15);
 
-    L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png?api_key=ef5143ae-e4ce-4e69-bfd6-a919e28a71a6', {
       attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(this.map);
   }
@@ -34,7 +34,9 @@ export class AppComponent implements OnInit {
   ngAfterViewInit(): void {
     this.ubicacionService.getIp().subscribe(result => {
       this.ipFormControl.setValue(result.ip);
+      this.consultarIp();
     });
+   
   }
 
   consultarIp() {
@@ -50,7 +52,7 @@ export class AppComponent implements OnInit {
         this.ubicacionService.getAddressFromAddress(result.location.region + "%20," + result.location.country).subscribe(data => {
           this.map.panTo(new L.LatLng(data.Results[0].latitude, data.Results[0].longitude), { animation: true });
           L.marker([data.Results[0].latitude, data.Results[0].longitude]).addTo(this.map)
-            .bindPopup('')
+            .bindPopup(result.location.region + ", " + result.location.country)
             .openPopup();
         }
         );
