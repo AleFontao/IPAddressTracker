@@ -1,4 +1,7 @@
-.header-wrapper img {
+.header-wrapper{
+    background-image: url('../assets/images/pattern-bg.png');
+    background-size: cover;
+    height: 30%;
     width: 100%;
 }
 
@@ -36,7 +39,7 @@ textarea:focus, input:focus{
 .ip-info-container {
     position: sticky;
     width: 100%;
-    top: 177px;
+    top: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -131,5 +134,8 @@ textarea:focus, input:focus{
         top: 70px;
     }
 
+    .ip-input-container .mat-form-field {
+        width: 50vw;
+    }
 
 }
