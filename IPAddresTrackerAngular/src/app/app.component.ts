@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import * as L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
 import { Ubicacion } from 'src/models/ubicacion';
 import { UbicacionService } from 'src/services/ubicacion.service';
 @Component({
@@ -29,6 +31,7 @@ export class AppComponent implements OnInit {
     L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png?api_key=ef5143ae-e4ce-4e69-bfd6-a919e28a71a6', {
       attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(this.map);
+  
   }
 
   ngAfterViewInit(): void {
@@ -51,6 +54,7 @@ export class AppComponent implements OnInit {
         
         this.ubicacionService.getAddressFromAddress(result.location.region + "%20," + result.location.country).subscribe(data => {
           this.map.panTo(new L.LatLng(data.Results[0].latitude, data.Results[0].longitude), { animation: true });
+      
           L.marker([data.Results[0].latitude, data.Results[0].longitude]).addTo(this.map)
             .bindPopup(result.location.region + ", " + result.location.country)
             .openPopup();
